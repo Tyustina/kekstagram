@@ -11,14 +11,16 @@ import { editForm } from './const.js';
 import { getData } from './api.js';
 import { renderPhoto } from './photo-thumbnail.js';
 import { showAlert } from './util.js';
-import { showFilters } from './photo-filters.js';
+ import { init } from './photo-filters.js';
 
 getData(
   (data) => renderPhoto(data, renderFullPhoto),
   () => showAlert('При загрузке произошла ошибка. Попробуйте еще раз')
-);
+)
+.then(data => init(data))
 
-getData.onload = showFilters();
+
+//getData.onload = showFilters();
 // getData.onerror = hideFilters();
 
 setUploadFormSubmit(() => closeModal(editForm));

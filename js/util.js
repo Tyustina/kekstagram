@@ -11,7 +11,6 @@ const getRandomInteger = (min, max) => {
 const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
 
-//
 const getNormalizedStringArray = (string) =>
   string.toString()//приводит к строке
     .toLowerCase()//приводит к одному регистру
