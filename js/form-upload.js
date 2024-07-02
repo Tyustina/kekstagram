@@ -20,6 +20,7 @@ fileUploadElement.addEventListener('change', () => {
   const matches = FILE__TYPES.some((it) => fileName.endsWith(it));//проверяет подходит ли формат из допустимых
   if(matches) {
     preview.src = URL.createObjectURL(file);//создает ссылку для фото с локального компьютера
+    preview.style.width = '100%';
   }
 });
 /** !!!!!!!! загружаемое фото огромное, что делать с размером?? */

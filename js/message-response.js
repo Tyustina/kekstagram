@@ -8,7 +8,6 @@ let currentMessage;
 const getUploadMessage = (template) => { //получение шаблона всплывающего сообщения и закрытие его по ТЗ
   currentMessage = template.cloneNode(true);
   bodyPage.append(currentMessage);
-  // bodyPage.addEventListener('keydown', onDocumentKeydown);//закрытие по Esc
   bodyPage.addEventListener('click', closeUploadMessage);
 };
 
@@ -21,9 +20,9 @@ export const showUploadErrorMessage = () => {
   getUploadMessage(errorMessageTemplate);
 };
 
-const closeUploadMessage = (evt) => {
+function closeUploadMessage (evt) {
   evt.stopPropagation();
-  const existElement = document.querySelector('.success')|| document.querySelector('.error');
+  const existElement = document.querySelector('.success') || document.querySelector('.error');
   const closeButton = existElement.querySelector('button');
   if(evt.target === existElement || evt.target === closeButton || evt.key === 'Escape'){
     existElement.remove();
