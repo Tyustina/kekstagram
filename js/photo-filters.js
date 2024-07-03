@@ -1,50 +1,49 @@
- import { photoFilters } from './const.js';
+import { photoFilters } from './const.js';
 
-// const PICTURES__COUNT = 10;
-// const Filter = {
-//   RANDOM: 'filter-random',
-//   DISCUSSED: 'filter-discussed',
-//   DEFAULT: 'filter-default'
-// }
+const PICTURES__COUNT = 10;
+const Filter = {
+  RANDOM: 'filter-random',
+  DISCUSSED: 'filter-discussed',
+  DEFAULT: 'filter-default'
+};
 
-// let currentFilter = Filter.DEFAULT
-
-// //1. функция сортировки случайных Х элементов массива
-// const sortRandomly = (pictures) => pictures.slice().sort(() => Math.random() - 0.5).slice(0, PICTURES__COUNT);
-
-// //2. сортировка массива по убываанию
-// const sortByComments = (pictureA, pictureB) => {
-//   pictureB.comments.length - pictureA.comments.length;
-// };
-
-// //3. функция которая будет применять соответствующую функцию к нужному фильтру
-// const getFilterPhoto = () =>{
-//   switch(currentFilter){
-//     case Filter.RANDOM :
-//       return sortRandomly(pictures)
-//       break
-//     case Filter.DISCUSSED :
-//       return
-//       break
-//     default:
-//       return pictures.slice()
-//       break
-//   }
-// }
-
-// //4. сделать переключение кнопок и совместить с  нужной фильтрацией
-
-// const setOnFilterClick () => {
-//   const clickedButton = evt.target;
+let currentFilter = Filter.DEFAULT;
+let pictures = [];
 
 
-// }
+const sortRandomly = (array) => array.slice().sort(() => Math.random() - 0.5).slice(0, PICTURES__COUNT);
 
 
-// //5. функция которая запускает фильтрацию, если в нее загрузились фото
-export const init = (loaderPictures, callback) => {
+const sortByComments = (pictureA, pictureB) => {
+  pictureB.comments.length - pictureA.comments.length;
+};
+
+const getFilterPhoto = () => {
+  if (currentFilter === Filter.RANDOM) {
+    return sortRandomly(pictures);
+  } else if (currentFilter === Filter.DISCUSSED) {
+    return [...pictures].sort(sortByComments);
+  } else if (currentFilter === Filter.DEFAULT) {
+    return [...pictures];
+  }
+};
+
+export const init = (loaderPictures) => {
   photoFilters.classList.remove('img-filters--inactive');
-  const pictures = [...loaderPictures];
-  console.log(pictures);
-  // setOnFilterClick(callback)
+  pictures = [...loaderPictures];
+
+  photoFilters.addEventListener('click', (evt) => {
+    if (!evt.target.classList.contains('img-filters__button')) {
+      return;
+    }
+    const clickedButton = evt.target;
+    if (clickedButton.id === currentFilter) {
+      return;
+    }
+
+    photoFilters.querySelector('.img-filters__button--active').classList.remove('.img-filters__button--active');
+    clickedButton.classList.add('.img-filters__button--active');
+    currentFilter = clickedButton.id;
+    getFilterPhoto();
+  });
 };
