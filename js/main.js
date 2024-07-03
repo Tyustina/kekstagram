@@ -13,11 +13,17 @@ import { renderPhoto } from './photo-thumbnail.js';
 import { showAlert } from './util.js';
 import { init } from './photo-filters.js';
 
-getData(
-  (data) => renderPhoto(data, renderFullPhoto),
-  () => showAlert('При загрузке произошла ошибка. Попробуйте еще раз')
-)
-  .then((data) => init(data));
+const bootstrap = async () => {
+  setUploadFormSubmit(() => closeModal(editForm));
 
-setUploadFormSubmit(() => closeModal(editForm));
+  try {
+    const picturesData = await getData();
+    init(picturesData, renderFullPhoto);
+    renderPhoto(picturesData, renderFullPhoto);
+  } catch (error) {
+    showAlert('При загрузке произошла ошибка. Попробуйте еще раз');
+  }
+};
+
+bootstrap();
 

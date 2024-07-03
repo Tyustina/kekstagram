@@ -10,6 +10,7 @@ const getRandomInteger = (min, max) => {
 //выбор случайного элемента массива
 const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
+export const sortRandomly = (array, count) => array.slice().sort(() => Math.random() - 0.5).slice(0, count);
 
 const getNormalizedStringArray = (string) =>
   string.toString()//приводит к строке
