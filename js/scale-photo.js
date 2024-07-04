@@ -1,4 +1,4 @@
-import { imageUploadPreview } from './const.js';
+import { previewImage } from './const.js';
 
 const controlScaleSmaller = document.querySelector('.scale__control--smaller');
 const controlScaleBigger = document.querySelector('.scale__control--bigger');
@@ -12,7 +12,7 @@ const ScaleOptions = {
 
 const updateScale = (controlValue) => {
   controlScaleValue.value = `${controlValue}%`;
-  imageUploadPreview.style.transform = `scale(${controlValue / 100})`;
+  previewImage.style.transform = `scale(${controlValue / 100})`;
 };
 
 const onControlScaleSmallerClick = () => {
@@ -38,7 +38,7 @@ export const activatingImageEditingScale = () => {
 
 export const resetImageEditingScale = () => {
   controlScaleValue.value = `${ScaleOptions.MAX_SCALE}%`;
-  imageUploadPreview.style.transform = null;
+  previewImage.style.transform = null;
 };
 
 
