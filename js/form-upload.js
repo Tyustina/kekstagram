@@ -21,6 +21,7 @@ fileUploadElement.addEventListener('change', () => {
   if(matches) {
     preview.src = URL.createObjectURL(file);//создает ссылку для фото с локального компьютера
     preview.style.width = '100%';
+    // preview.style.objectFit = 'cover';
   }
 });
 /** !!!!!!!! загружаемое фото огромное, что делать с размером?? */
