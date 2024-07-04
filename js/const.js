@@ -7,3 +7,5 @@ export const hashtagInput = uploadForm.querySelector('.text__hashtags');
 export const descriptionInput = uploadForm.querySelector('.text__description');
 export const submitButton = uploadForm.querySelector('.img-upload__submit');
 export const imageUploadPreview = document.querySelector('.img-upload__preview');
+export const photoFiltersContainer = bodyPage.querySelector('.img-filters');
+

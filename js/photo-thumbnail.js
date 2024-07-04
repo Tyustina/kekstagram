@@ -23,5 +23,7 @@ export const renderPhoto = (photosData, onClickImage) => {
     const photoElement = createThumbnail(picture, onClickImage);
     photoListFragment.append(photoElement);
   });
+
+  photosListElement.querySelectorAll('.picture').forEach((picture) => picture.remove());
   photosListElement.append(photoListFragment);
 };

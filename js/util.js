@@ -10,8 +10,8 @@ const getRandomInteger = (min, max) => {
 //выбор случайного элемента массива
 const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
+export const sortRandomly = (array, count) => array.slice().sort(() => Math.random() - 0.5).slice(0, count);
 
-//
 const getNormalizedStringArray = (string) =>
   string.toString()//приводит к строке
     .toLowerCase()//приводит к одному регистру
@@ -43,5 +43,27 @@ export const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
+
+export function debounce (callback, timeoutDelay) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export function throttle (callback, delayBetweenFrames) {
+  let lastTime = 0;
+
+  return (...rest) => {
+    const now = new Date();
+
+    if (now - lastTime >= delayBetweenFrames) {
+      callback.apply(this, rest);
+      lastTime = now;
+    }
+  };
+}
 
 export { getRandomArrayElement, getRandomInteger, getNormalizedStringArray };
