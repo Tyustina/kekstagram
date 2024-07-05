@@ -4,16 +4,8 @@ import { getNormalizedStringArray } from './util.js';
 const MAX__HASHTAGS__COUNT = 5;
 const MAX_COMMENTS_SYMBOLS = 140;
 
-/*
--хэш-тег начинается с символа # (решётка);
--строка после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;
--хеш-тег не может состоять только из одной решётки;
--максимальная длина одного хэш-тега 20 символов, включая решётку;
--хэш-теги нечувствительны к регистру: #ХэшТег и #хэштег считаются одним и тем же тегом;
- */
-const hashtagRegex = /^#[a-zа-яё0-9]{1,19}$/i;
 
-//сообщения об ошибках
+const hashtagRegex = /^#[a-zа-яё0-9]{1,19}$/i;
 
 const errorMessage = {
   HASHTAG__COUNT: `Количество хэштегов должно быть не более ${MAX__HASHTAGS__COUNT}`,
@@ -22,23 +14,21 @@ const errorMessage = {
 };
 const incorrectHashtag = [];
 
-//проверка на валидность
 function validateHashtagRules(value) {
-  if (!value) {//если значение отсутствует - это не ошибка, тк поле не обязательное
+  if (!value) {
     return true;
   }
 
   const hashtags = getNormalizedStringArray(value);
   incorrectHashtag.length = 0;
   hashtags.forEach((hashtag) => {
-    if (hashtagRegex.test(hashtag) === false) {//проверяет соответствие, если невалиден - попадает в массив невалидных
+    if (hashtagRegex.test(hashtag) === false) {
       incorrectHashtag.push(hashtag);
     }
   });
-  return !incorrectHashtag.length;//если в массиве невалидных хэштегов хоть 1 есть - вернет false
+  return !incorrectHashtag.length;
 }
 
-//функция выдает сообщение соответственно количеству неправильных хештегов
 const getErrorValidateMessage = () => {
   let validateMessage;
   if (incorrectHashtag.length === 1) {
@@ -49,21 +39,18 @@ const getErrorValidateMessage = () => {
   return validateMessage;
 };
 
-//функция проверяет количество хештегов в строке и сравнивает с правилами
 const validateHashtagCount = (value) => {
   const hashtags = getNormalizedStringArray(value);
   return hashtags.length <= MAX__HASHTAGS__COUNT;
 };
 
-//проверяет строку на наличие одинаковых хештегов
 const validateHashtagDuplicate = (value) => {
   const hashtags = getNormalizedStringArray(value);
-  const uniqueHasgtags = new Set(hashtags);
-  return hashtags.length === uniqueHasgtags.size;
+  const uniqueHashtags = new Set(hashtags);
+  return hashtags.length === uniqueHashtags.size;
 
 };
-//проверка длинны комментария
-const validateDescriplionLength = (value) => MAX_COMMENTS_SYMBOLS >= value.length;
+const validateDescriptionLength = (value) => MAX_COMMENTS_SYMBOLS >= value.length;
 
 export const configureFormValidation = () => {
   const pristine = new Pristine(uploadForm, {
@@ -75,10 +62,10 @@ export const configureFormValidation = () => {
   pristine.addValidator(hashtagInput, validateHashtagRules, getErrorValidateMessage);
   pristine.addValidator(hashtagInput, validateHashtagCount, errorMessage.HASHTAG__COUNT);
   pristine.addValidator(hashtagInput, validateHashtagDuplicate, errorMessage.DUPLICATE_HASHTAGS);
-  pristine.addValidator(descriptionInput, validateDescriplionLength, errorMessage.COMMENTS_SYMBOLS);
+  pristine.addValidator(descriptionInput, validateDescriptionLength, errorMessage.COMMENTS_SYMBOLS);
 
   return {
-    isValidForm: ()=> pristine.validate(),//Проверяем валидность формы
-    resetValidate: ()=>pristine.reset(),//сбрасываем валидацию
+    isValidForm: ()=> pristine.validate(),
+    resetValidate: ()=>pristine.reset(),
   };
 };

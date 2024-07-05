@@ -12,17 +12,17 @@ const createListComment = (comments) => {
   const commentsListFragment = document.createDocumentFragment();
 
   comments.forEach((comment) => {
-    const commentElement = commentTemplate.cloneNode(true);//клонирует шаблон
+    const commentElement = commentTemplate.cloneNode(true);
     const commentAvatar = commentElement.querySelector('.social__picture');
-    commentAvatar.src = comment.avatar;//заполняет комментарий данными
+    commentAvatar.src = comment.avatar;
     commentAvatar.alt = comment.name;
     commentElement.querySelector('.social__text').textContent = comment.message;
     commentsListFragment.append(commentElement);
   });
-  commentsList.append(commentsListFragment);//доб их в разметку
+  commentsList.append(commentsListFragment);
 };
 
-export function showListComment(list) {//отображает количество показаных коментариев на странице
+export function showListComment(list) {
   if (list.length > COMMENTS_STEP) {
     createListComment(list.splice(0, COMMENTS_STEP));
     commentsData.showComments += COMMENTS_STEP;
@@ -35,6 +35,6 @@ export function showListComment(list) {//отображает количеств
   showCommentsCount.textContent = commentsData.showComments;
 }
 
-commentsLoaderButton.addEventListener('click', () =>{//загрузка коментариев по кнопке
+commentsLoaderButton.addEventListener('click', () =>{
   showListComment(commentsData.dataComments);
 });

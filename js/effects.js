@@ -5,7 +5,7 @@ const sliderElement = uploadForm.querySelector('.effect-level__slider');
 const effectLevelValueElement = uploadForm.querySelector('.effect-level__value');
 const effectsElement = uploadForm.querySelector('.effects');
 
-const EFFECTS = [//массив с настройками эффектов
+const EFFECTS = [
   {
     name: 'none',
     style: 'none',
@@ -100,14 +100,14 @@ const onEffectsChange = (evt) => {
 };
 
 const onSliderUpdate = () => {
-  const sliderValue = sliderElement.noUiSlider.get();//актуальное значение с ползунка
+  const sliderValue = sliderElement.noUiSlider.get();
   previewImage.style.filter = (chosenEffect === DEFAULT_EFFECT)
     ? DEFAULT_EFFECT.style
     : `${chosenEffect.style}(${sliderValue}${chosenEffect.unit})`;
   effectLevelValueElement.value = sliderValue;
 };
 
-noUiSlider.create(sliderElement, {//задает параметры слайдера
+noUiSlider.create(sliderElement, {
   range: {
     min: DEFAULT_EFFECT.min,
     max: DEFAULT_EFFECT.max,

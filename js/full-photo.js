@@ -9,7 +9,7 @@ const descriptionText = fullPhoto.querySelector('.social__caption');
 
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {//закрытие по Escape
+  if (evt.key === 'Escape') {
     evt.preventDefault();
     const activeModalElement = document.querySelector('.overlay:not(.hidden)');
     if(activeModalElement) {
@@ -20,31 +20,31 @@ const onDocumentKeydown = (evt) => {
 
 function setDataFullPhoto(dataFullPhoto) {
   fullPhotoImage.src = dataFullPhoto.url;
-  commentsData.showComments = 0;//обнуляем чтобы при открытии нескольких карточек не суммировалось количество комм-в
+  commentsData.showComments = 0;
   commentsData.dataComments = dataFullPhoto.comments;
   descriptionText.textContent = dataFullPhoto.description;
   likesCount.textContent = dataFullPhoto.likes;
   commentsCount.textContent = dataFullPhoto.comments.length;
-  commentsList.textContent = '';////обнуляем чтобы при открытии нескольких карточек не суммировались комментарии
+  commentsList.textContent = '';
   showListComment(commentsData.dataComments);
 }
 
 export function renderFullPhoto(dataFullPhoto){
-  setDataFullPhoto(dataFullPhoto); //устанавливает данные в модальное окно
+  setDataFullPhoto(dataFullPhoto);
   openModal(fullPhoto);
 }
 
-fullPhotoCloseElement.addEventListener('click', () => {//закрытие по крестику
+fullPhotoCloseElement.addEventListener('click', () => {
   closeModal(fullPhoto);
 });
 
-export function openModal(modalElement) {//показать окно
+export function openModal(modalElement) {
   modalElement.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
   bodyPage.classList.add('modal-open');
 }
 
-export function closeModal(modalElement) {//скрыть окно
+export function closeModal(modalElement) {
   modalElement.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   bodyPage.classList.remove('modal-open');
