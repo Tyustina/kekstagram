@@ -1,26 +1,21 @@
 import { bodyPage } from './const.js';
 const ALERT_SHOW_TIME = 5000;
 
-//генерирует случайное число
-const getRandomInteger = (min, max) => {
+export const getRandomInteger = (min, max) => {
   const random = Math.random() * (max + 1 - min) + min;
   return Math.floor(random);
 };
 
-//выбор случайного элемента массива
-const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
+export const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
 
 export const sortRandomly = (array, count) => array.slice().sort(() => Math.random() - 0.5).slice(0, count);
 
-const getNormalizedStringArray = (string) =>
-  string.toString()//приводит к строке
-    .toLowerCase()//приводит к одному регистру
-    .trim()//удаляет пробелы в начале и конце
-    .replace(/\s+/g, ' ')//убирает все пробелы между словами во всем документе
-    .split(' ');//добавляет одиночныйпробел между словами
-
-
-//сообщение об ошибке при загрузке с сервера
+export const getNormalizedStringArray = (string) =>
+  string.toString()
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ')
+    .split(' ');
 
 export const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -52,18 +47,3 @@ export function debounce (callback, timeoutDelay) {
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 }
-
-export function throttle (callback, delayBetweenFrames) {
-  let lastTime = 0;
-
-  return (...rest) => {
-    const now = new Date();
-
-    if (now - lastTime >= delayBetweenFrames) {
-      callback.apply(this, rest);
-      lastTime = now;
-    }
-  };
-}
-
-export { getRandomArrayElement, getRandomInteger, getNormalizedStringArray };

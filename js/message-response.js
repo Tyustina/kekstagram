@@ -5,7 +5,7 @@ const successMessageTemplate = document.querySelector('#success').content.queryS
 const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
 let currentMessage;
 
-const getUploadMessage = (template) => { //получение шаблона всплывающего сообщения и закрытие его по ТЗ
+const getUploadMessage = (template) => {
   currentMessage = template.cloneNode(true);
   bodyPage.append(currentMessage);
   bodyPage.addEventListener('click', closeUploadMessage);

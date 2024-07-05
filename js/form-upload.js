@@ -14,19 +14,15 @@ const FILE__TYPES = ['jpg', 'png', 'gif', 'jpeg'];
 
 fileUploadElement.addEventListener('change', () => {
   openEditingImageForm();
-  //добавляет свою фотографию в форму
   const file = fileUploadElement.files[0];
   const fileName = file.name.toLowerCase();
-  const matches = FILE__TYPES.some((it) => fileName.endsWith(it));//проверяет подходит ли формат из допустимых
+  const matches = FILE__TYPES.some((it) => fileName.endsWith(it));
   if(matches) {
-    preview.src = URL.createObjectURL(file);//создает ссылку для фото с локального компьютера
+    preview.src = URL.createObjectURL(file);
     preview.style.width = '100%';
-    // preview.style.objectFit = 'cover';
   }
 });
-/** !!!!!!!! загружаемое фото огромное, что делать с размером?? */
 
-//функция закрытия окна по escape с исключениями закрытия при фокусе на полях хэштега и коментария
 export const onDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -38,7 +34,7 @@ export const onDocumentKeydown = (evt) => {
 
 export const { isValidForm, resetValidate } = configureFormValidation(uploadForm, hashtagInput, descriptionInput);
 
-//функция открытия окна редактирования файла
+
 function openEditingImageForm() {
   editForm.classList.remove('hidden');
   bodyPage.classList.add('modal-open');
@@ -47,19 +43,18 @@ function openEditingImageForm() {
   activatingImageEditingScale();
 }
 
-export function resetEditingForm() {//сбрасывает значения в форме редактирования
+export function resetEditingForm() {
   resetValidate();
   uploadForm.reset();
   resetImageEditingScale();
   resetSlider();
 }
 
-//функция закрытия окна редактирования файла
 function closeEditingImageForm() {
   editForm.classList.add('hidden');
   bodyPage.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
-  fileUploadElement.value = '';//сбрасывает значение поля с выбором фото
+  fileUploadElement.value = '';
   resetEditingForm();
 }
 
