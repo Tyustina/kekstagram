@@ -5,18 +5,19 @@ import { resetSlider } from './effects.js';
 import { sendData } from './api.js';
 import { showUploadErrorMessage, showUploadSuccessMessage } from './message-response.js';
 
+const FILE_TYPES = ['jpg', 'png', 'gif', 'jpeg'];
+
 const fileUploadElement = uploadForm.querySelector('.img-upload__input');
 const closeFormButton = uploadForm.querySelector('.img-upload__cancel');
 const hashtagsElement = document.querySelector('.text__hashtags');
 const descriptionElement = document.querySelector('.text__description');
 const preview = document.querySelector('.img-upload__preview img');
-const FILE__TYPES = ['jpg', 'png', 'gif', 'jpeg'];
 
 fileUploadElement.addEventListener('change', () => {
   openEditingImageForm();
   const file = fileUploadElement.files[0];
   const fileName = file.name.toLowerCase();
-  const matches = FILE__TYPES.some((it) => fileName.endsWith(it));
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
   if(matches) {
     preview.src = URL.createObjectURL(file);
     preview.style.width = '100%';
