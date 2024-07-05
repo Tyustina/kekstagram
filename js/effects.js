@@ -1,9 +1,8 @@
-import { uploadForm } from './const.js';
+import { uploadForm, previewImage } from './const.js';
 
 const sliderWrapper = uploadForm.querySelector('.effect-level');
 const sliderElement = uploadForm.querySelector('.effect-level__slider');
 const effectLevelValueElement = uploadForm.querySelector('.effect-level__value');
-const previewImage = uploadForm.querySelector('.img-upload__preview');
 const effectsElement = uploadForm.querySelector('.effects');
 
 const EFFECTS = [//массив с настройками эффектов
@@ -96,7 +95,7 @@ const onEffectsChange = (evt) => {
     return;
   }
   chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
-  previewImage.className = `effects__preview--${chosenEffect.name}`;
+  previewImage.className = `img-upload__preview effects__preview--${chosenEffect.name}`;
   updateSlider();
 };
 
