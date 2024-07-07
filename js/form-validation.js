@@ -3,9 +3,10 @@ import { getNormalizedStringArray } from './util.js';
 
 const MAX_HASHTAGS_COUNT = 5;
 const MAX_COMMENTS_SYMBOLS = 140;
+const MAX_HASHTAG_SYMBOLS = 1;
+const MIN_HASHTAG_SYMBOLS = 19;
 
-
-const hashtagRegex = /^#[a-zа-яё0-9]{1,19}$/i;
+const hashtagRegex = new RegExp(`^#[a-zа-яё0-9]{${MAX_HASHTAG_SYMBOLS},${MIN_HASHTAG_SYMBOLS}}$`,'i');
 
 const ErrorMessage = {
   HASHTAG__COUNT: `Количество хэштегов должно быть не более ${MAX_HASHTAGS_COUNT}`,
