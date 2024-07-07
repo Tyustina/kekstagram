@@ -5,8 +5,8 @@ const createThumbnail = ({url,likes,comments,description}, onClickImage) => {
   const photoElement = thumbnailDisplay.cloneNode(true);
   const photoImageElement = photoElement.querySelector('.picture__img');
   photoImageElement.src = url;
-  photoElement.querySelector('.picture__likes').textContent = likes;
-  photoElement.querySelector('.picture__comments').textContent = comments.length;
+  photoElement.querySelector('.picture__likes').likes = likes;
+  photoElement.querySelector('.picture__comments').comments = comments;
   photoImageElement.alt = description;
   photoImageElement.addEventListener('click', (e) =>{
     e.preventDefault();

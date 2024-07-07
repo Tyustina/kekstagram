@@ -22,7 +22,7 @@ function setDataFullPhoto(dataFullPhoto) {
   fullPhotoImage.src = dataFullPhoto.url;
   commentsData.showComments = 0;
   commentsData.dataComments = dataFullPhoto.comments;
-  descriptionText.textContent = dataFullPhoto.description ? dataFullPhoto.description : 'Нет описания';
+  descriptionText.textContent = dataFullPhoto.description;
   likesCount.textContent = dataFullPhoto.likes;
   commentsCount.textContent = dataFullPhoto.comments.length;
   commentsList.textContent = '';
