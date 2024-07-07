@@ -1,18 +1,19 @@
 import { uploadForm, hashtagInput, descriptionInput } from './const.js';
 import { getNormalizedStringArray } from './util.js';
 
-const MAX__HASHTAGS__COUNT = 5;
+const MAX_HASHTAGS_COUNT = 5;
 const MAX_COMMENTS_SYMBOLS = 140;
+const MAX_HASHTAG_SYMBOLS = 1;
+const MIN_HASHTAG_SYMBOLS = 19;
 
+const hashtagRegex = new RegExp(`^#[a-zа-яё0-9]{${MAX_HASHTAG_SYMBOLS},${MIN_HASHTAG_SYMBOLS}}$`,'i');
 
-const hashtagRegex = /^#[a-zа-яё0-9]{1,19}$/i;
-
-const errorMessage = {
-  HASHTAG__COUNT: `Количество хэштегов должно быть не более ${MAX__HASHTAGS__COUNT}`,
+const ErrorMessage = {
+  HASHTAG__COUNT: `Количество хэштегов должно быть не более ${MAX_HASHTAGS_COUNT}`,
   DUPLICATE_HASHTAGS: 'Хэштеги не должны повторяться',
   COMMENTS_SYMBOLS: `Максимальная длинна комментария ${MAX_COMMENTS_SYMBOLS}`
 };
-const incorrectHashtag = [];
+const incorrectHashtags = [];
 
 function validateHashtagRules(value) {
   if (!value) {
@@ -20,18 +21,18 @@ function validateHashtagRules(value) {
   }
 
   const hashtags = getNormalizedStringArray(value);
-  incorrectHashtag.length = 0;
+  incorrectHashtags.length = 0;
   hashtags.forEach((hashtag) => {
     if (hashtagRegex.test(hashtag) === false) {
-      incorrectHashtag.push(hashtag);
+      incorrectHashtags.push(hashtag);
     }
   });
-  return !incorrectHashtag.length;
+  return !incorrectHashtags.length;
 }
 
 const getErrorValidateMessage = () => {
   let validateMessage;
-  if (incorrectHashtag.length === 1) {
+  if (incorrectHashtags.length === 1) {
     validateMessage = 'Введен невалидный хештег';
   } else {
     validateMessage = 'Введены невалидные хештеги';
@@ -41,7 +42,7 @@ const getErrorValidateMessage = () => {
 
 const validateHashtagCount = (value) => {
   const hashtags = getNormalizedStringArray(value);
-  return hashtags.length <= MAX__HASHTAGS__COUNT;
+  return hashtags.length <= MAX_HASHTAGS_COUNT;
 };
 
 const validateHashtagDuplicate = (value) => {
@@ -60,9 +61,9 @@ export const configureFormValidation = () => {
   });
 
   pristine.addValidator(hashtagInput, validateHashtagRules, getErrorValidateMessage);
-  pristine.addValidator(hashtagInput, validateHashtagCount, errorMessage.HASHTAG__COUNT);
-  pristine.addValidator(hashtagInput, validateHashtagDuplicate, errorMessage.DUPLICATE_HASHTAGS);
-  pristine.addValidator(descriptionInput, validateDescriptionLength, errorMessage.COMMENTS_SYMBOLS);
+  pristine.addValidator(hashtagInput, validateHashtagCount, ErrorMessage.HASHTAG__COUNT);
+  pristine.addValidator(hashtagInput, validateHashtagDuplicate, ErrorMessage.DUPLICATE_HASHTAGS);
+  pristine.addValidator(descriptionInput, validateDescriptionLength, ErrorMessage.COMMENTS_SYMBOLS);
 
   return {
     isValidForm: ()=> pristine.validate(),

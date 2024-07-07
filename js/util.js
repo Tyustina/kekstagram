@@ -6,8 +6,6 @@ export const getRandomInteger = (min, max) => {
   return Math.floor(random);
 };
 
-export const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
-
 export const sortRandomly = (array, count) => array.slice().sort(() => Math.random() - 0.5).slice(0, count);
 
 export const getNormalizedStringArray = (string) =>
