@@ -28,7 +28,7 @@ export const onDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     if (![hashtagsElement, descriptionElement].includes(document.activeElement)) {
-      fornEditingCloseHandler();
+      formEditingCloseHandler();
     }
   }
 };
@@ -40,7 +40,7 @@ function openEditingImageForm() {
   editForm.classList.remove('hidden');
   bodyPage.classList.add('modal-open');
   document.addEventListener('keydown', onDocumentKeydown);
-  closeFormButton.addEventListener('click', fornEditingCloseHandler);
+  closeFormButton.addEventListener('click', formEditingCloseHandler);
   activatingImageEditingScale();
 }
 
@@ -51,7 +51,7 @@ export function resetEditingForm() {
   resetSlider();
 }
 
-function fornEditingCloseHandler() {
+function formEditingCloseHandler() {
   editForm.classList.add('hidden');
   bodyPage.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
